@@ -13,6 +13,8 @@ output:
 
 I am interested in exploring data related to U.S. foreign policy, specifically with respect to South America. I am taking Portuguese this semester, and would love to connect my interests in Brazil and South America with my final project. 
 
+Update: I have modified my final project idea from looking at South American foreign policy to looking at election results here in the U.S. 
+
 ## Milestone 2 
 
 Does politically biased news content on television push voters toward favoring a certain party? In this study, I plan to investigate the extent to which biased news coverage impacts voting patterns of Americans. I hypothesize that voting patterns shift to favor certain parties when Americans view content on television that is politically biased. When Americans continuously intake content that is heavily skewed in one direction versus another, I expect that it is more likely that they will begin to adjust their voting patterns. My sample contains data from 10,126 towns across the U.S., and includes 28 states in the sample. My unit of analysis is a town. The explanatory variable is the share of Fox News subscribers in 2000. It is coded as a proportion from 0 to 1. My outcome variable is the shift in voting that favors a certain party. The variable is calculated as a proportion, and compares the two-party vote share for the Republicans in the 1992, 1996, and 2000 Presidential elections. For example, if the outcome variable were coded = 0.331460674157303, this would mean that Republicans received  ~ 33% of the vote. This variable is measured from the foxnews data set taken from “The Fox News Effect: Media Bias and Voting.” Quarterly Journal of Economics by Stefano DellaVigna and Ethan Kaplan (2007). If I observe voting patterns favoring Republicans in areas highly exposed to Fox News, this would support my hypothesis. However, if I observe less support for Republicans, or the same amount of support for Republicans when highly exposed to Fox News, this would provide evidence against my hypothesis. When I run a regression of Republican support on the Fox News indicator variable, a positive, significant coefficient would provide support for this hypothesis. 
@@ -35,4 +37,21 @@ fox_news_visualization_milestone3
 
 
 ```
+## Milestone 4
 
+```{r}
+library(tidyverse)
+fox_news <- read_csv("foxnews.csv")
+
+fox_news_visualization_milestone4 <-
+  fox_news |>
+  ggplot(mapping = aes(x = hisp1990, y = gopvoteshare1992)) +
+  geom_point() + 
+  labs(
+    x = "Proportion of Hispanic Viewers in 1990", 
+    y = "GOP Vote Share 1992"
+  )
+fox_news_visualization_milestone4
+
+```
+My plan is to create multiple visuals for the final state of my project. I will look at various variables (such as income and race, which I have already analyzed) in relation to GOP Vote Share to make connections. I also plan to group by state for future visualizations to make new connections between each variable and the vote share that the Republican party earned in 1992 across the U.S.  
