@@ -50,7 +50,7 @@ fox_news_visualization_milestone4 <-
   labs(
     x = "Proportion of Hispanic Viewers in 1990", 
     y = "GOP Vote Share 1992"
-  )
+  ) 
 fox_news_visualization_milestone4
 
 ```
