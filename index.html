@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["foxnews.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","State_of_Iowa_-_Monthly_Voter_Registration_Totals_by_State_Senate_District.csv"]}
+  {"type":"character","attributes":{},"value":["Affordable_Housing_by_Town_2011-2022.csv","foxnews.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-5-2.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","State_of_Iowa_-_Monthly_Voter_Registration_Totals_by_State_Senate_District.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1473,6 +1473,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_distill-->
   <script src="index_files/header-attrs-2.24/header-attrs.js"></script>
+  <script src="index_files/kePrint-0.0.1/kePrint.js"></script>
+  <link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="index_files/popper-2.6.0/popper.min.js"></script>
   <link href="index_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1517,18 +1519,210 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to U.S. foreign policy, specifically with respect to South America. I am taking Portuguese this semester, and would love to connect my interests in Brazil and South America with my final project.</p>
-<p>Update: I have modified my final project idea from looking at South American foreign policy to looking at election results here in the U.S.</p>
-<h2 id="milestone-2">Milestone 2</h2>
-Does politically biased news content on television push voters toward favoring a certain party? In this study, I plan to investigate the extent to which biased news coverage impacts voting patterns of Americans. I hypothesize that voting patterns shift to favor certain parties when Americans view content on television that is politically biased. When Americans continuously intake content that is heavily skewed in one direction versus another, I expect that it is more likely that they will begin to adjust their voting patterns. My sample contains data from 10,126 towns across the U.S., and includes 28 states in the sample. My unit of analysis is a town. The explanatory variable is the share of Fox News subscribers in 2000. It is coded as a proportion from 0 to 1. My outcome variable is the shift in voting that favors a certain party. The variable is calculated as a proportion, and compares the two-party vote share for the Republicans in the 1992, 1996, and 2000 Presidential elections. For example, if the outcome variable were coded = 0.331460674157303, this would mean that Republicans received ~ 33% of the vote. This variable is measured from the foxnews data set taken from “The Fox News Effect: Media Bias and Voting.” Quarterly Journal of Economics by Stefano DellaVigna and Ethan Kaplan (2007). If I observe voting patterns favoring Republicans in areas highly exposed to Fox News, this would support my hypothesis. However, if I observe less support for Republicans, or the same amount of support for Republicans when highly exposed to Fox News, this would provide evidence against my hypothesis. When I run a regression of Republican support on the Fox News indicator variable, a positive, significant coefficient would provide support for this hypothesis.
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
-<span><span class='va'>iowa_votes_study</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"State_of_Iowa_-_Monthly_Voter_Registration_Totals_by_State_Senate_District.csv"</span>, show_col_types <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>ct_votes_study</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Affordable_Housing_by_Town_2011-2022.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>ct_votes_study</span></span></code></pre>
 </div>
+<pre><code># A tibble: 2,025 × 10
+    Year `Town Code` Town    `2010 Census Units` `Government Assisted`
+   &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;                 &lt;dbl&gt;
+ 1  2020           1 Andover                1317                    18
+ 2  2020           2 Ansonia                8148                   349
+ 3  2020           3 Ashford                1903                    32
+ 4  2020           4 Avon                   7389                   244
+ 5  2020           5 Barkha…                1589                     0
+ 6  2020           6 Beacon…                2509                     0
+ 7  2020           7 Berlin                 8140                   556
+ 8  2020           8 Bethany                2044                     0
+ 9  2020           9 Bethel                 7310                   192
+10  2020          10 Bethle…                1575                    24
+# ℹ 2,015 more rows
+# ℹ 5 more variables: `Tenant Rental Assistance` &lt;dbl&gt;,
+#   `Single Family CHFA/ USDA Mortgages` &lt;dbl&gt;,
+#   `Deed Restricted Units` &lt;dbl&gt;, `Total Assisted Units` &lt;dbl&gt;,
+#   `Percent Affordable` &lt;dbl&gt;</code></pre>
 </div>
-<h2 id="milestone-3">Milestone 3</h2>
+<p>Introduction:
+Is there a meaningful relationship between the affordability of housing in a region and the viewing of politically biased news? Further, does politically biased news content on television push voters toward favoring a certain party? In this study, I plan to investigate the extent to which biased news coverage impacts voting patterns of Americans. I hypothesize that voting patterns shift to favor certain parties when Americans view content on television that is politically biased. When Americans continuously intake content that is heavily skewed in one direction versus another, I expect that it is more likely that they will begin to adjust their voting patterns. I also predict that greater viewing of politically biased content will occur in higher-income areas. My sample contains data from 10,126 towns across the U.S., and includes 28 states in the sample. After merging two data sets, I conducted additional analysis only looking at the state of Connecticut. My unit of analysis is a town.</p>
+<p>This investigation is important in that it sheds light on one of many factors (biased news) that can impact voting habits of American citizens.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usmap.dev'>usmap</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='va'>shaded_in_state</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Iowa'</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/usmap/man/plot_usmap.html'>plot_usmap</a></span><span class='op'>(</span>regions <span class='op'>=</span> <span class='st'>"states"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Map of US"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>panel.background <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"gray"</span>, fill <span class='op'>=</span> <span class='st'>"light yellow"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usmap.dev'>usmap</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/usmap/man/plot_usmap.html'>plot_usmap</a></span><span class='op'>(</span>regions <span class='op'>=</span> <span class='st'>"county"</span>, include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CT"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Connecticut"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>panel.background <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"gray"</span>, fill <span class='op'>=</span> <span class='st'>"cadetblue1"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>Data:
+In my first analysis, I filtered the results by state to only analyze Connecticut’s relationship between affordability of housing in a town and viewing of Fox News. The explanatory variable is the affordability of housing in a town, measured by percentage of affordable housing units in the town. It is coded as a proportion from 0 to 100. My outcome variable is the share of Fox News subscribers in 2000. The variable is calculated as a proportion, and compares the two-party vote share for the Republicans in the 1992, 1996, and 2000 Presidential elections. For example, if the outcome variable were coded = 0.331460674157303, this would mean that Republicans received ~ 33% of the vote. This variable is measured from the foxnews data set taken from “The Fox News Effect: Media Bias and Voting.” Quarterly Journal of Economics by Stefano DellaVigna and Ethan Kaplan (2007).</p>
+<p>In my second part of analysis, I analyzed the relationship between Fox News subscription and support of Republican candidates measured by vote across the U.S. The explanatory variable is the share of Fox News subscribers in 2000. It is coded as a proportion from 0 to 1. My outcome variable is the shift in voting that favors a certain party. The variable is calculated as a proportion, and compares the two-party vote share for the Republicans in the 1992, 1996, and 2000 Presidential elections. If I observe voting patterns favoring Republicans in areas highly exposed to Fox News, this would support my hypothesis. However, if I observe less support for Republicans, or the same amount of support for Republicans when highly exposed to Fox News, this would provide evidence against my hypothesis. When I run a regression of Republican support on the Fox News indicator variable, a positive, significant coefficient would provide support for this hypothesis.</p>
+<p>Results:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='va'>ct_votes_study</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Affordable_Housing_by_Town_2011-2022.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>fox_news</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"foxnews.csv"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>fox_ct</span> <span class='op'>&lt;-</span> <span class='va'>fox_news</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>state</span> <span class='op'>==</span> <span class='st'>"Ct"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ct_votes_study</span> <span class='op'>&lt;-</span> <span class='va'>ct_votes_study</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>town <span class='op'>=</span> <span class='va'>Town</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>new_data_sett</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>fox_ct</span>, <span class='va'>ct_votes_study</span>, by <span class='op'>=</span> <span class='st'>"town"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>new_data_sett</span></span></code></pre>
+</div>
+<pre><code># A tibble: 1,868 × 21
+   state town   college1990 male1990 black1990 hisp1990 income1990
+   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 2 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 3 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 4 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 5 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 6 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 7 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 8 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+ 9 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+10 Ct    Bethel       0.322    0.492    0.0110   0.0187       3.61
+# ℹ 1,858 more rows
+# ℹ 14 more variables: logincome1990 &lt;dbl&gt;, subrf2000 &lt;dbl&gt;,
+#   gopvoteshare1992 &lt;dbl&gt;, gopvoteshare1996 &lt;dbl&gt;,
+#   gopvoteshare2000 &lt;dbl&gt;, Year &lt;dbl&gt;, `Town Code` &lt;dbl&gt;,
+#   `2010 Census Units` &lt;dbl&gt;, `Government Assisted` &lt;dbl&gt;,
+#   `Tenant Rental Assistance` &lt;dbl&gt;,
+#   `Single Family CHFA/ USDA Mortgages` &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>new_regression_gg</span> <span class='op'>&lt;-</span> <span class='va'>new_data_sett</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>`Percent Affordable`</span>, y <span class='op'>=</span> <span class='va'>subrf2000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"steelblue1"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, color <span class='op'>=</span> <span class='st'>"indianred1"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, size <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Percent Affordable Housing"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='st'>"Fox News Subscriptions"</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span><span class='va'>regression_new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>subrf2000</span> <span class='op'>~</span> <span class='va'>`Percent Affordable`</span>, data <span class='op'>=</span> <span class='va'>new_data_sett</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>modelsummary</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>regression_new</span>,</span>
+<span>                           statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"s.e. = {std.error}"</span>,</span>
+<span>                                         <span class='st'>"p = {p.value}"</span><span class='op'>)</span>,</span>
+<span>                           gof_map <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>, <span class='st'>"r.squared"</span>, <span class='st'>"adj.r.squared"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+ (1)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+0.091
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.005
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Percent Affordable
+</td>
+<td style="text-align:center;">
+−0.004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+p = &lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+1844
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.018
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>new_regression_gg</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>regression_new</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = subrf2000 ~ `Percent Affordable`, data = new_data_sett)
+
+Coefficients:
+         (Intercept)  `Percent Affordable`  
+            0.090793             -0.003677  </code></pre>
+</div>
+<p>For the regression that analyzes the relationship between affordability of housing and Fox News subscriptions, a one percentage point increase in affordability of housing resulted in a 0.004 percentage point reduction in Fox News subscriptions.</p>
+<p>The intercept means that in towns where the affordability of housing is zero, the Fox News subscriptions will be at about 0.091 units.</p>
+<p>The p-value of less than 0.001 means that affordability of housing is significant in explaining Fox News consumption in a Connecticut town. In terms of whether or not this should be interpreted causally, this study used observational data, not random assignment. We don’t know if the relationship is driven solely by affordability, so we cannot interpret causally.</p>
+<p>The “goodness of fit” can be analyzed looking at the r-squared value to see how well the data fit the linear regression model graphed. In the social sciences, it is generally standard to say that an r-squared value from 0.50 to 0.99 is fairly strong. Here, the r-squared value is only 0.019, so there is not exactly a strong fit between the data and the linear model. However, the r-squared value is low since only one variable, not multiple, is being analyzed in this regression. Therefore, the r-squared is not exactly explaining the variation. It is the significance of the p-value which matters the most.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
@@ -1537,44 +1731,232 @@ Does politically biased news content on television push voters toward favoring a
 <span><span class='va'>fox_news_visualization_milestone3</span> <span class='op'>&lt;-</span></span>
 <span>  <span class='va'>fox_news</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>income1990</span>, y <span class='op'>=</span> <span class='va'>gopvoteshare1992</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"steelblue1"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, color <span class='op'>=</span> <span class='st'>"indianred1"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, size <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"Income in 1990"</span>, </span>
 <span>    y <span class='op'>=</span> <span class='st'>"GOP Vote Share 1992"</span></span>
 <span>  <span class='op'>)</span></span>
 <span><span class='va'>fox_news_visualization_milestone3</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
+<img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="624" />
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usmap.dev'>usmap</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/usmap/man/plot_usmap.html'>plot_usmap</a></span><span class='op'>(</span>regions <span class='op'>=</span> <span class='st'>"states"</span><span class='op'>)</span> </span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span><span class='va'>income_regression</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>gopvoteshare2000</span> <span class='op'>~</span> <span class='va'>income1990</span>, data <span class='op'>=</span> <span class='va'>fox_news</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>modelsummary</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>income_regression</span>,</span>
+<span>                           statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"s.e. = {std.error}"</span>,</span>
+<span>                                         <span class='st'>"p = {p.value}"</span><span class='op'>)</span>,</span>
+<span>                           gof_map <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>, <span class='st'>"r.squared"</span>, <span class='st'>"adj.r.squared"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+ (1)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+0.534
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+income1990
+</td>
+<td style="text-align:center;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+p = 0.052
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+10126
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fox_news</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='va'>fox_news</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"foxnews.csv"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>fox_news_visualization_milestonee</span> <span class='op'>&lt;-</span></span>
+<span>  <span class='va'>fox_news</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>subrf2000</span>, y <span class='op'>=</span> <span class='va'>gopvoteshare2000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"steelblue1"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, color <span class='op'>=</span> <span class='st'>"indianred1"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, size <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Fox News Subscriptions 2000"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='st'>"GOP Vote Share 2000"</span></span>
+<span>  <span class='op'>)</span></span>
+<span><span class='va'>fox_news_visualization_milestonee</span></span></code></pre>
 </div>
-<pre><code># A tibble: 10,126 × 12
-   state town       college1990 male1990 black1990 hisp1990 income1990
-   &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
- 1 Ak    Angoon          0.164     0.549   0        0.0171        3.21
- 2 Ak    Barrow          0.183     0.527   0.00656  0.0211        5.67
- 3 Ak    Bethel          0.219     0.522   0.00779  0.0170        4.22
- 4 Ak    Cordova         0.175     0.544   0.00138  0.0313        4.63
- 5 Ak    Craig           0.165     0.535   0        0.0309        4.72
- 6 Ak    Dillingham      0.213     0.503   0        0.0118        4.41
- 7 Ak    Eielson         0.145     0.555   0.116    0.0544        2.59
- 8 Ak    Fairbanks       0.183     0.540   0.126    0.0484        3.20
- 9 Ak    Galena          0.151     0.681   0.0371   0.00248       2.86
-10 Ak    Gambell         0.0383    0.575   0        0             1.59
-# ℹ 10,116 more rows
-# ℹ 5 more variables: logincome1990 &lt;dbl&gt;, subrf2000 &lt;dbl&gt;,
-#   gopvoteshare1992 &lt;dbl&gt;, gopvoteshare1996 &lt;dbl&gt;,
-#   gopvoteshare2000 &lt;dbl&gt;</code></pre>
+<img src="index_files/figure-html5/unnamed-chunk-5-2.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span><span class='va'>news_andvoteshare_regression</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>gopvoteshare2000</span> <span class='op'>~</span> <span class='va'>subrf2000</span>, data <span class='op'>=</span> <span class='va'>fox_news</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>modelsummary</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>news_andvoteshare_regression</span>,</span>
+<span>                           statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"s.e. = {std.error}"</span>,</span>
+<span>                                         <span class='st'>"p = {p.value}"</span><span class='op'>)</span>,</span>
+<span>                           gof_map <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>, <span class='st'>"r.squared"</span>, <span class='st'>"adj.r.squared"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<h2 id="milestone-4">Milestone 4</h2>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+ (1)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+0.540
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+subrf2000
+</td>
+<td style="text-align:center;">
+−0.019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+p = 0.024
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+9795
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>income_regression</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = gopvoteshare2000 ~ income1990, data = fox_news)
+
+Coefficients:
+(Intercept)   income1990  
+   0.534109     0.001942  </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>news_andvoteshare_regression</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = gopvoteshare2000 ~ subrf2000, data = fox_news)
+
+Coefficients:
+(Intercept)    subrf2000  
+    0.54012     -0.01888  </code></pre>
+</div>
+<p>For the regression that analyzes the relationship between income in 1990 and GOP vote share in 1992, a one percentage point increase in income resulted in a 0.002 percentage point increase in GOP vote share. The intercept means that theoretically in towns where the income is zero, the GOP vote share will be at about 0.534 units. The p-value of 0.052 means that affordability of housing is significant (when using an alpha of a = 0.1) in explaining GOP vote share based on income. In terms of whether or not this should be interpreted causally, this study used observational data, not random assignment. We don’t know if the relationship is driven solely by income, so we cannot interpret causally.</p>
+<p>For the regression that analyzes the relationship between Fox News subscriptions in 2000 and GOP vote share in 2000, a one percentage point increase in Fox News subscriptions resulted in a 0.019 percentage point decrease in GOP vote share. This does not support my initial hypothesis. The intercept means that in towns where the Fox News subscriptions are zero, the GOP vote share will be at about 0.540 units. The p-value of 0.024 means that affordability of housing is significant in explaining Fox News consumption in a Connecticut town. In terms of whether or not this should be interpreted causally, this study used observational data, not random assignment. We don’t know if the relationship is driven solely by affordability, so we cannot interpret causally. As previously mentioned, the “goodness of fit” can be analyzed looking at the r-squared value to see how well the data fit the linear regression model graphed. In the social sciences, it is generally standard to say that an r-squared value from 0.50 to 0.99 is fairly strong. Here, the r-squared value is only 0.001, so there is definitely not a strong fit between the data and the linear model. Again, as previously described, the significance of the p-value is more important than a low r-squared value.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
@@ -1583,17 +1965,30 @@ Does politically biased news content on television push voters toward favoring a
 <span><span class='va'>fox_news_visualization_milestone4</span> <span class='op'>&lt;-</span></span>
 <span>  <span class='va'>fox_news</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>hisp1990</span>, y <span class='op'>=</span> <span class='va'>gopvoteshare1992</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"steelblue1"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, size <span class='op'>=</span> <span class='fl'>1.5</span>, color <span class='op'>=</span> <span class='st'>"indianred1"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"Proportion of Hispanic Viewers in 1990"</span>, </span>
 <span>    y <span class='op'>=</span> <span class='st'>"GOP Vote Share 1992"</span></span>
 <span>  <span class='op'>)</span> </span>
 <span><span class='va'>fox_news_visualization_milestone4</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+<img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>multiple_regression</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>gopvoteshare1992</span> <span class='op'>~</span> <span class='va'>hisp1990</span> <span class='op'>+</span> <span class='va'>income1990</span>, data <span class='op'>=</span> <span class='va'>fox_news</span><span class='op'>)</span></span>
+<span><span class='va'>multiple_regression</span> </span></code></pre>
 </div>
-<p>My plan is to create multiple visuals for the final state of my project. I will look at various variables (such as income and race, which I have already analyzed) in relation to GOP Vote Share to make connections. I also plan to group by state for future visualizations to make new connections between each variable and the vote share that the Republican party earned in 1992 across the U.S.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<pre><code>
+Call:
+lm(formula = gopvoteshare1992 ~ hisp1990 + income1990, data = fox_news)
+
+Coefficients:
+(Intercept)     hisp1990   income1990  
+     0.4486      -0.1304       0.0136  </code></pre>
+</div>
+<p>In this multiple regression, a one percentage point increase in proportion of Hispanic voters in 1990 resulted in a 0.1304 percentage point reduction in 1992 GOP vote share, holding income in 1990 fixed. A one percentage point increase in income in 1990 resulted in a 0.0136 percentage point increase in GOP Vote share, holding proportion of Hispanic voters in 1990 fixed.</p>
+<p>Conclusion:
+confounding variables: maybe the relationship is the other way around - is it those towns who strongly support republican candidates that collectively watch a lot of fox news, rather than a high percentage of town fox news subscriptions changing opinion and increasing republican vote share – wait maybe i should run another regression with the variables flipped to really go above and beyond. If I had more time and money to complete this analysis, I would filter additional data by political party to see if any registered democrats or independent voters in these towns decided to “vote Republican” after the introduction of Fox News in the area.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
