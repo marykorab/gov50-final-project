@@ -18,6 +18,94 @@ Update: I have modified my final project idea from looking at South American for
 ## Milestone 2 
 
 Does politically biased news content on television push voters toward favoring a certain party? In this study, I plan to investigate the extent to which biased news coverage impacts voting patterns of Americans. I hypothesize that voting patterns shift to favor certain parties when Americans view content on television that is politically biased. When Americans continuously intake content that is heavily skewed in one direction versus another, I expect that it is more likely that they will begin to adjust their voting patterns. My sample contains data from 10,126 towns across the U.S., and includes 28 states in the sample. My unit of analysis is a town. The explanatory variable is the share of Fox News subscribers in 2000. It is coded as a proportion from 0 to 1. My outcome variable is the shift in voting that favors a certain party. The variable is calculated as a proportion, and compares the two-party vote share for the Republicans in the 1992, 1996, and 2000 Presidential elections. For example, if the outcome variable were coded = 0.331460674157303, this would mean that Republicans received  ~ 33% of the vote. This variable is measured from the foxnews data set taken from “The Fox News Effect: Media Bias and Voting.” Quarterly Journal of Economics by Stefano DellaVigna and Ethan Kaplan (2007). If I observe voting patterns favoring Republicans in areas highly exposed to Fox News, this would support my hypothesis. However, if I observe less support for Republicans, or the same amount of support for Republicans when highly exposed to Fox News, this would provide evidence against my hypothesis. When I run a regression of Republican support on the Fox News indicator variable, a positive, significant coefficient would provide support for this hypothesis. 
+```{r}
+library(tidyverse)
+iowa_votes_study <- read_csv("State_of_Iowa_-_Monthly_Voter_Registration_Totals_by_State_Senate_District.csv", show_col_types = FALSE)
+iowa_votes_study
+
+```
+```{r}
+library(tidyverse)
+ct_votes_study <- read_csv("Affordable_Housing_by_Town_2011-2022.csv")
+ct_votes_study
+```
+
+## if I can use the affordable housing data from ct, i want to run the following regression: see the relationship b/w gop vote share in 2000, and percent affordable a few years later. 
+
+```{r}
+library(tidyverse)
+ct_votes_study <- read_csv("Affordable_Housing_by_Town_2011-2022.csv")
+fox_news <- read_csv("foxnews.csv")
+
+fox_ct <- fox_news |>
+  filter(state == "Ct")
+
+ct_votes_study <- ct_votes_study |>
+  rename(town = Town)
+
+new_data_sett <- inner_join(fox_ct, ct_votes_study, by = "town")
+
+new_data_sett
+
+
+new_regression_gg <- new_data_sett |>
+  ggplot(mapping = aes(x = `Percent Affordable`, y = subrf2000)) +
+  geom_jitter(color = "steelblue1") + geom_smooth(method = "lm", color = "indianred1", se = FALSE, size = 1.5) + theme_minimal() + 
+  labs(
+    x = "Percent Affordable Housing", 
+    y = "Fox News Subscriptions"
+  )
+
+
+library(broom)
+regression_new <- lm(subrf2000 ~ `Percent Affordable`, data = new_data_sett)
+
+modelsummary::modelsummary(regression_new,
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
+
+
+
+new_regression_gg
+
+regression_new
+
+
+
+
+```
+## interpretation: 
+For the regression that analyzes the relationship between affordability of housing and Fox News subscriptions, a one percentage point increase in affordability of housing resulted in a 0.004 percentage point reduction in Fox News subscriptions. 
+
+The intercept means that in towns where the affordability of housing is zero, the Fox News subscriptions will be at about 0.091 units. 
+
+The p-value of less than 0.001 means that affordability of housing is significant in explaining Fox News consumption in a Connecticut town. In terms of whether or not this should be interpreted causally, this study used observational data, not random assignment. We don't know if the relationship is driven solely by affordability, so we cannot interpret causally. 
+
+The "goodness of fit" can be analyzed looking at the r-squared value to see how well the data fit the linear regression model graphed. In the social sciences, it is generally standard to say that an r-squared value from 0.50 to 0.99 is fairly strong. Here, the r-squared value is only 0.019, so there is not exactly a strong fit between the data and the linear model. However, the r-squared value is low since only one variable, not multiple, is being analyzed in this regression. Therefore, the r-squared is not exactly explaining the variation. It is the significance of the p-value which matters the most. 
+
+## good question: does affordability of housing affect/predict the viewing of fox news in that area? 
+
+## -need to figure out why there is such a gap in an organic data set 
+
+## question: not sure what to look at here for interpretation: why is the r^2 value positive for a negative slope? how should i best interpret the p value here? 
+
+
+## want to run a regression that compares fox news views (subrf2000) w/ active republicans (Republican Active)
+```{r}
+library(tidyverse)
+
+new_regression <- combined_data_set |>
+  group_by(state)
+  ggplot(mapping = aes(x = subrf2000, y = Republican Active)) +
+  geom_point() + geom_smooth(method = "lm", se = FALSE) + theme_minimal() + 
+  labs(
+    x = "Fox News Subscriptions", 
+    y = "Active Republicans in Iowa "
+  )
+new_regression
+```
+
 
 ## Milestone 3 
 
@@ -28,15 +116,75 @@ fox_news <- read_csv("foxnews.csv")
 fox_news_visualization_milestone3 <-
   fox_news |>
   ggplot(mapping = aes(x = income1990, y = gopvoteshare1992)) +
-  geom_point() + 
+  geom_jitter(color = "steelblue1") + geom_smooth(method = "lm", color = "indianred1", se = FALSE, size = 1.5) + theme_minimal() + 
   labs(
     x = "Income in 1990", 
     y = "GOP Vote Share 1992"
   )
 fox_news_visualization_milestone3
 
+library(broom)
+income_regression <- lm(gopvoteshare2000 ~ income1990, data = fox_news)
+
+modelsummary::modelsummary(main_regression,
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
+
+
+
+library(tidyverse)
+fox_news <- read_csv("foxnews.csv")
+
+fox_news_visualization_milestonee <-
+  fox_news |>
+  ggplot(mapping = aes(x = subrf2000, y = gopvoteshare2000)) +
+  geom_jitter(color = "steelblue1") + geom_smooth(method = "lm", color = "indianred1", se = FALSE, size = 1.5) + theme_minimal() + 
+  labs(
+    x = "Fox News Subscriptions 2000", 
+    y = "GOP Vote Share 2000"
+  )
+fox_news_visualization_milestonee
+
+
+library(broom)
+news_andvoteshare_regression <- lm(gopvoteshare2000 ~ subrf2000, data = fox_news)
+
+modelsummary::modelsummary(main_regression,
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
+
+
+news_andvoteshare_regression
 
 ```
+
+For the regression that analyzes the relationship between income in 1990 and GOP vote share in 1992, a one percentage point increase in income resulted in a ____ percentage point increase in GOP vote share. The intercept means that theoretically in towns where the income is zero, the GOP vote share will be at about ____ units. 
+
+ 
+For the regression that analyzes the relationship between Fox News subscriptions in 2000 and GOP vote share in 2000, a one percentage point increase in Fox News subscriptions resulted in a 0.019 percentage point decrease in GOP vote share. This does not support my initial hypothesis. The intercept means that in towns where the Fox News subscriptions are zero, the GOP vote share will be at about 0.540 units. The p-value of 0.024 means that affordability of housing is significant in explaining Fox News consumption in a Connecticut town. In terms of whether or not this should be interpreted causally, this study used observational data, not random assignment. We don't know if the relationship is driven solely by affordability, so we cannot interpret causally. As previously mentioned, the "goodness of fit" can be analyzed looking at the r-squared value to see how well the data fit the linear regression model graphed. In the social sciences, it is generally standard to say that an r-squared value from 0.50 to 0.99 is fairly strong. Here, the r-squared value is only 0.001, so there is definitely not a strong fit between the data and the linear model. Again, as previously described, the significance of the p-value is more important than a low r-squared value. 
+
+
+
+
+## interpretation: A one unit increase in x (Fox News subscriptions in 2000) is associated with a decrease in the GOP Vote Share in 2000. This is not support for my hypothesis. 
+
+##look at r^2? What about the pvalue? 
+
+```{r}
+library(usmap)
+library(ggplot2)
+shaded_in_state <- c('Iowa')
+plot_usmap(regions = "states") + labs(title = "Map of US") + theme(panel.background = element_rect(color = "gray", fill = "light yellow"))
+```
+```{r}
+library(usmap)
+library(ggplot2)
+
+plot_usmap(regions = "county", include = c("CT")) + labs(title = "Connecticut") + theme(panel.background = element_rect(color = "gray", fill = "cadetblue1"))
+```
+
 ## Milestone 4
 
 ```{r}
@@ -46,7 +194,7 @@ fox_news <- read_csv("foxnews.csv")
 fox_news_visualization_milestone4 <-
   fox_news |>
   ggplot(mapping = aes(x = hisp1990, y = gopvoteshare1992)) +
-  geom_point() + 
+  geom_point() + geom_smooth(method = "lm", se = FALSE) + theme_minimal() + 
   labs(
     x = "Proportion of Hispanic Viewers in 1990", 
     y = "GOP Vote Share 1992"
@@ -55,3 +203,26 @@ fox_news_visualization_milestone4
 
 ```
 My plan is to create multiple visuals for the final state of my project. I will look at various variables (such as income and race, which I have already analyzed) in relation to GOP Vote Share to make connections. I also plan to group by state for future visualizations to make new connections between each variable and the vote share that the Republican party earned in 1992 across the U.S.  
+```{r}
+fox_news 
+```
+
+Write-up 
+
+Introduction: 
+Is there a meaningful relationship between the affordability of housing in a region and the viewing of politically biased news? Further, does politically biased news content on television push voters toward favoring a certain party? In this study, I plan to investigate the extent to which biased news coverage impacts voting patterns of Americans. I hypothesize that voting patterns shift to favor certain parties when Americans view content on television that is politically biased. When Americans continuously intake content that is heavily skewed in one direction versus another, I expect that it is more likely that they will begin to adjust their voting patterns. I also predict that greater viewing of politically biased content will occur in higher-income areas. My sample contains data from 10,126 towns across the U.S., and includes 28 states in the sample. After merging two data sets, I conducted additional analysis only looking at the state of Connecticut. My unit of analysis is a town. 
+
+This investigation is important in that it sheds light on one of many factors (biased news) that can impact voting habits of American citizens.  
+
+In my first analysis, I filtered the results by state to only analyze Connecticut's relationship between affordability of housing in a town and viewing of Fox News. The explanatory variable is the affordability of housing in a town, measured by percentage of affordable housing units in the town. It is coded as a proportion from 0 to 100. My outcome variable is the share of Fox News subscribers in 2000. The variable is calculated as a proportion, and compares the two-party vote share for the Republicans in the 1992, 1996, and 2000 Presidential elections. For example, if the outcome variable were coded = 0.331460674157303, this would mean that Republicans received  ~ 33% of the vote. This variable is measured from the foxnews data set taken from “The Fox News Effect: Media Bias and Voting.” Quarterly Journal of Economics by Stefano DellaVigna and Ethan Kaplan (2007).
+
+In my second part of analysis, I analyzed the relationship between Fox News subscription and support of Republican candidates measured by vote across the U.S. The explanatory variable is the share of Fox News subscribers in 2000. It is coded as a proportion from 0 to 1. My outcome variable is the shift in voting that favors a certain party. The variable is calculated as a proportion, and compares the two-party vote share for the Republicans in the 1992, 1996, and 2000 Presidential elections. If I observe voting patterns favoring Republicans in areas highly exposed to Fox News, this would support my hypothesis. However, if I observe less support for Republicans, or the same amount of support for Republicans when highly exposed to Fox News, this would provide evidence against my hypothesis. When I run a regression of Republican support on the Fox News indicator variable, a positive, significant coefficient would provide support for this hypothesis. 
+
+Conclusion: 
+confounding variables: maybe the relationship is the other way around - is it those towns who strongly support republican candidates that collectively watch a lot of fox news, rather than a high percentage of town fox news subscriptions changing opinion and increasing republican vote share -- wait maybe i should run another regression with the variables flipped to really go above and beyond 
+
+Ways to improve if i had more time/money: 
+filter by political party -- see if any registered democrats or independent voters in these towns decided to vote R after the introduction of Fox News in the area.  
+
+
+
