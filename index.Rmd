@@ -140,12 +140,12 @@ fox_news_visualization_milestonee
 library(broom)
 news_andvoteshare_regression <- lm(gopvoteshare2000 ~ subrf2000, data = fox_news)
 
-modelsummary::modelsummary(main_regression,
+modelsummary::modelsummary(income_regression,
                            statistic = c("s.e. = {std.error}",
                                          "p = {p.value}"),
                            gof_map = c("nobs", "r.squared", "adj.r.squared"))
 
-
+income_regression
 news_andvoteshare_regression
 
 ```
